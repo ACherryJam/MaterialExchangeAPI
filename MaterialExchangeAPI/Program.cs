@@ -1,4 +1,5 @@
 using MaterialExchangeAPI.Data;
+using MaterialExchangeAPI.Data.Repositories;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,6 +14,9 @@ builder.Services.AddMediatR(
 );
 
 builder.Services.AddDbContext<DataContext>();
+
+builder.Services.AddScoped<ISellerRepository, SellerRepository>();
+builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 
 var app = builder.Build();
 
