@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34309.116
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MaterialExchangeAPI", "MaterialExchangeAPI\MaterialExchangeAPI.csproj", "{76FBE875-7218-4FD9-B671-8330F8467E22}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{76FBE875-7218-4FD9-B671-8330F8467E22}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{76FBE875-7218-4FD9-B671-8330F8467E22}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{76FBE875-7218-4FD9-B671-8330F8467E22}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{76FBE875-7218-4FD9-B671-8330F8467E22}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7B464E56-1693-4CBC-9803-06EA71D3FE35}
+	EndGlobalSection
+EndGlobal
