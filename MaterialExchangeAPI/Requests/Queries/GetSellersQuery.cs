@@ -3,7 +3,7 @@ using MediatR;
 
 namespace MaterialExchangeAPI.Requests.Queries
 {
-    public class GetSellersQuery : IRequest<Seller>
+    public class GetSellersQuery : IRequest<List<Seller>>
     {
 
     }
