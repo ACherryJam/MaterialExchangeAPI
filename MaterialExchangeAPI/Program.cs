@@ -1,3 +1,4 @@
+using MaterialExchangeAPI.Data;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +11,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddMediatR(
     cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly())
 );
+
+builder.Services.AddDbContext<DataContext>();
 
 var app = builder.Build();
 
