@@ -1,4 +1,5 @@
-﻿using MaterialExchangeAPI.DTO;
+﻿using Mapster;
+using MaterialExchangeAPI.DTO;
 using MaterialExchangeAPI.Models;
 using MaterialExchangeAPI.Requests.Queries;
 using MediatR;
@@ -22,15 +23,19 @@ namespace MaterialExchangeAPI.Controllers
         {
             List<Seller> sellers = await _mediator.Send(new GetSellersQuery());
 
-            return Ok(sellers);
+            List<GetSellerDTO> response = sellers.Adapt<List<GetSellerDTO>>();
+            return Ok(response);
         }
 
         [HttpGet("id")]
         public async Task<ActionResult> GetSellerById(int id)
         {
             Seller seller = await _mediator.Send(new GetSellerByIdQuery(id));
+            if (seller == null)
+                return NotFound();
 
-            return seller == null ? NotFound() : Ok(seller);
+            GetSellerDTO response = seller.Adapt<GetSellerDTO>();
+            return Ok(response);
         }
 
         [HttpPost]
