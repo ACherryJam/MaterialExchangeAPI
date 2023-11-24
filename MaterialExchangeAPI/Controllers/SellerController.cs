@@ -1,4 +1,7 @@
 ﻿using MaterialExchangeAPI.DTO;
+using MaterialExchangeAPI.Models;
+using MaterialExchangeAPI.Requests.Queries;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaterialExchangeAPI.Controllers
@@ -7,21 +10,27 @@ namespace MaterialExchangeAPI.Controllers
     [Route("api/sellers")]
     public class SellerController : ControllerBase
     {
-        public SellerController()
-        {
+        private readonly IMediator _mediator;
 
+        public SellerController(IMediator mediator)
+        {
+            _mediator = mediator;
         }
 
         [HttpGet]
         public async Task<ActionResult> GetSellers()
         {
-            throw new NotImplementedException();
+            List<Seller> sellers = await _mediator.Send(new GetSellersQuery());
+
+            return Ok(sellers);
         }
 
         [HttpGet("id")]
         public async Task<ActionResult> GetSellerById(int id)
         {
-            throw new NotImplementedException();
+            Seller seller = await _mediator.Send(new GetSellerByIdQuery(id));
+
+            return seller == null ? NotFound() : Ok(seller);
         }
 
         [HttpPost]
