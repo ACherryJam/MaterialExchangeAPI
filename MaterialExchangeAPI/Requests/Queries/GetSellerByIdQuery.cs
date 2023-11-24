@@ -3,8 +3,8 @@ using MaterialExchangeAPI.Models;
 
 namespace MaterialExchangeAPI.Requests.Queries
 {
-    public class GetSellerByIdQuery : IRequest<Seller>
+    public record class GetSellerByIdQuery(int Id) : IRequest<Seller>
     {
-        public int Id { get; set; }
+        
     }
 }
