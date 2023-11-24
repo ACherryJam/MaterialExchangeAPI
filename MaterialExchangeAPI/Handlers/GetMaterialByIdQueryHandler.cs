@@ -1,4 +1,5 @@
-﻿using MaterialExchangeAPI.Models;
+﻿using MaterialExchangeAPI.Data.Repositories;
+using MaterialExchangeAPI.Models;
 using MaterialExchangeAPI.Requests.Queries;
 using MediatR;
 
@@ -6,14 +7,17 @@ namespace MaterialExchangeAPI.Handlers
 {
     public class GetMaterialByIdQueryHandler : IRequestHandler<GetMaterialByIdQuery, Material>
     {
-        public GetMaterialByIdQueryHandler() 
+        private readonly IMaterialRepository _repository;
+
+        public GetMaterialByIdQueryHandler(IMaterialRepository repository) 
         {
-            
+            _repository = repository;
         }
 
-        public async Task<Material> Handle(GetMaterialByIdQuery query, CancellationToken cancellationToken)
+        public async Task<Material?> Handle(GetMaterialByIdQuery query, CancellationToken cancellationToken)
         {
-            throw new NotImplementedException();
+            Material? material = await _repository.GetById(query.Id);
+            return material;
         }
     }
 }
