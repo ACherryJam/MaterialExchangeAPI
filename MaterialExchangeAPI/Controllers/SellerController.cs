@@ -53,7 +53,17 @@ namespace MaterialExchangeAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateSeller(int id, UpdateSellerDTO dto)
         {
-            throw new NotImplementedException();
+            UpdateSellerCommand command = dto.Adapt<UpdateSellerCommand>() with
+            {
+                Id = id
+            };
+
+            Seller seller = await _mediator.Send(command);
+            if (seller == null)
+                return NotFound();
+
+            GetSellerDTO response = seller.Adapt<GetSellerDTO>();
+            return Ok(response);
         }
 
         [HttpDelete]

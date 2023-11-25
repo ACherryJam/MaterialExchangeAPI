@@ -54,7 +54,17 @@ namespace MaterialExchangeAPI.Controllers
         [HttpPut]
         public async Task<ActionResult> UpdateMaterial(int id, UpdateMaterialDTO dto)
         {
-            throw new NotImplementedException();
+            UpdateMaterialCommand command = dto.Adapt<UpdateMaterialCommand>() with
+            {
+                Id = id
+            };
+
+            Material material = await _mediator.Send(command);
+            if (material == null)
+                return NotFound();
+
+            GetMaterialDTO response = material.Adapt<GetMaterialDTO>();
+            return Ok(response);
         }
 
         [HttpDelete]
