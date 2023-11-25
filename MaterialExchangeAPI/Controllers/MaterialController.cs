@@ -1,6 +1,7 @@
 ﻿using Mapster;
 using MaterialExchangeAPI.DTO;
 using MaterialExchangeAPI.Models;
+using MaterialExchangeAPI.Requests.Commands;
 using MaterialExchangeAPI.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Http;
@@ -42,7 +43,12 @@ namespace MaterialExchangeAPI.Controllers
         [HttpPost]
         public async Task<ActionResult> AddMaterial(CreateMaterialDTO dto)
         {
-            throw new NotImplementedException();
+            CreateMaterialCommand command = dto.Adapt<CreateMaterialCommand>();
+
+            Material material = await _mediator.Send(command);
+            GetMaterialDTO response = material.Adapt<GetMaterialDTO>();
+
+            return CreatedAtAction("GetMaterialById", new { id = response.Id }, response);
         }
 
         [HttpPut]
