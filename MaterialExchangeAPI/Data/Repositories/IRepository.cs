@@ -12,7 +12,7 @@
 
         void Delete(int id);
 
-        void Save();
+        Task Save();
 
         bool Exists(int id);
     }
