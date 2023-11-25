@@ -3,6 +3,8 @@ using MaterialExchangeAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using FluentValidation;
+using Hangfire;
+using Hangfire.PostgreSql;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -26,6 +28,18 @@ builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
 
 builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
+builder.Services.AddHangfire(
+    cfg => {
+        cfg.SetDataCompatibilityLevel(CompatibilityLevel.Version_180);
+        cfg.UseSimpleAssemblyNameTypeSerializer();
+        cfg.UseRecommendedSerializerSettings();
+        cfg.UsePostgreSqlStorage(
+            options => options.UseNpgsqlConnection(builder.Configuration.GetConnectionString("HangfireConnection"))
+        );
+    }
+);
+builder.Services.AddHangfireServer();
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
@@ -37,6 +51,8 @@ if (app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 
 app.UseAuthorization();
+
+app.UseHangfireDashboard();
 
 app.MapControllers();
 
