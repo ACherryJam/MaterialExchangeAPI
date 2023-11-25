@@ -1,5 +1,8 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Mapster;
 using MaterialExchangeAPI.DTO;
+using MaterialExchangeAPI.Extensions;
 using MaterialExchangeAPI.Models;
 using MaterialExchangeAPI.Requests.Commands;
 using MaterialExchangeAPI.Requests.Queries;
@@ -40,8 +43,16 @@ namespace MaterialExchangeAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddSeller(CreateSellerDTO dto)
+        public async Task<ActionResult> AddSeller(CreateSellerDTO dto,
+                                                  IValidator<CreateSellerDTO> validator)
         {
+            // Validation
+            ValidationResult result = await validator.ValidateAsync(dto);
+
+            if (!result.IsValid)
+                return ValidationProblem(result.ToModelStateDictionary());
+
+            // Request handling
             CreateSellerCommand command = dto.Adapt<CreateSellerCommand>();
 
             Seller seller = await _mediator.Send(command);
@@ -51,8 +62,16 @@ namespace MaterialExchangeAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateSeller(int id, UpdateSellerDTO dto)
+        public async Task<ActionResult> UpdateSeller(int id, UpdateSellerDTO dto,
+                                                     IValidator<UpdateSellerDTO> validator)
         {
+            // Validation
+            ValidationResult result = await validator.ValidateAsync(dto);
+
+            if (!result.IsValid)
+                return ValidationProblem(result.ToModelStateDictionary());
+
+            // Request handling
             UpdateSellerCommand command = dto.Adapt<UpdateSellerCommand>() with
             {
                 Id = id

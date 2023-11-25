@@ -2,6 +2,7 @@ using MaterialExchangeAPI.Data;
 using MaterialExchangeAPI.Data.Repositories;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
+using FluentValidation;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +23,8 @@ builder.Services.AddDbContext<DataContext>(
 
 builder.Services.AddScoped<ISellerRepository, SellerRepository>();
 builder.Services.AddScoped<IMaterialRepository, MaterialRepository>();
+
+builder.Services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 

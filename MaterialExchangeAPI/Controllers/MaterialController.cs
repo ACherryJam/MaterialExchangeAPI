@@ -1,8 +1,12 @@
-﻿using Mapster;
+﻿using FluentValidation;
+using FluentValidation.Results;
+using Mapster;
 using MaterialExchangeAPI.DTO;
+using MaterialExchangeAPI.Extensions;
 using MaterialExchangeAPI.Models;
 using MaterialExchangeAPI.Requests.Commands;
 using MaterialExchangeAPI.Requests.Queries;
+using MaterialExchangeAPI.Validators;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -41,8 +45,16 @@ namespace MaterialExchangeAPI.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> AddMaterial(CreateMaterialDTO dto)
+        public async Task<ActionResult> AddMaterial(CreateMaterialDTO dto,
+                                                    IValidator<CreateMaterialDTO> validator)
         {
+            // Validation
+            ValidationResult result = await validator.ValidateAsync(dto);
+
+            if (!result.IsValid)
+                return ValidationProblem(result.ToModelStateDictionary());
+
+            // Request handling
             CreateMaterialCommand command = dto.Adapt<CreateMaterialCommand>();
 
             Material material = await _mediator.Send(command);
@@ -52,8 +64,16 @@ namespace MaterialExchangeAPI.Controllers
         }
 
         [HttpPut]
-        public async Task<ActionResult> UpdateMaterial(int id, UpdateMaterialDTO dto)
+        public async Task<ActionResult> UpdateMaterial(int id, UpdateMaterialDTO dto,
+                                                       IValidator<UpdateMaterialDTO> validator)
         {
+            // Validation
+            ValidationResult result = await validator.ValidateAsync(dto);
+
+            if (!result.IsValid)
+                return ValidationProblem(result.ToModelStateDictionary());
+
+            // Request handling
             UpdateMaterialCommand command = dto.Adapt<UpdateMaterialCommand>() with
             {
                 Id = id
