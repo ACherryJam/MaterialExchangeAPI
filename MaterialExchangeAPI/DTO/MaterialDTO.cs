@@ -1,4 +1,6 @@
-﻿namespace MaterialExchangeAPI.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace MaterialExchangeAPI.DTO
 {
     public class GetMaterialDTO
     {
@@ -10,7 +12,9 @@
 
     public class CreateMaterialDTO
     {
+        [Required]
         public string? Name { get; set; }
+        [Required]
         public decimal Price { get; set; }
         public int? SellerId { get; set; } = null;
     }

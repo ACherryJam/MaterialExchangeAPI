@@ -24,6 +24,9 @@ namespace MaterialExchangeAPI.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Получение списка материалов
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult> GetMaterials()
         {
@@ -33,6 +36,10 @@ namespace MaterialExchangeAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Получение материала по ID
+        /// </summary>
+        /// <param name="id">ID материала</param>
         [HttpGet("id")]
         public async Task<ActionResult> GetMaterialById(int id)
         {
@@ -44,6 +51,9 @@ namespace MaterialExchangeAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Создание материала
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult> AddMaterial(CreateMaterialDTO dto,
                                                     IValidator<CreateMaterialDTO> validator)
@@ -63,6 +73,10 @@ namespace MaterialExchangeAPI.Controllers
             return CreatedAtAction("GetMaterialById", new { id = response.Id }, response);
         }
 
+        /// <summary>
+        /// Изменение материала по ID
+        /// </summary>
+        /// <param name="id">ID материала</param>
         [HttpPut]
         public async Task<ActionResult> UpdateMaterial(int id, UpdateMaterialDTO dto,
                                                        IValidator<UpdateMaterialDTO> validator)
@@ -87,6 +101,10 @@ namespace MaterialExchangeAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Удаление материала по ID
+        /// </summary>
+        /// <param name="id">ID материала</param>
         [HttpDelete]
         public async Task<ActionResult> DeleteMaterial(int id)
         {

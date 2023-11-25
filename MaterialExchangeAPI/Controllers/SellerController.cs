@@ -22,6 +22,9 @@ namespace MaterialExchangeAPI.Controllers
             _mediator = mediator;
         }
 
+        /// <summary>
+        /// Получение списка продавцов
+        /// </summary>
         [HttpGet]
         public async Task<ActionResult> GetSellers()
         {
@@ -31,6 +34,11 @@ namespace MaterialExchangeAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Получение продавца по ID
+        /// </summary>
+        /// <param name="id">ID продавца</param>
+        /// <returns></returns>
         [HttpGet("id")]
         public async Task<ActionResult> GetSellerById(int id)
         {
@@ -42,6 +50,9 @@ namespace MaterialExchangeAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Создание продавца
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult> AddSeller(CreateSellerDTO dto,
                                                   IValidator<CreateSellerDTO> validator)
@@ -61,6 +72,10 @@ namespace MaterialExchangeAPI.Controllers
             return CreatedAtAction("GetSellerById", new { id = response.Id }, response);
         }
 
+        /// <summary>
+        /// Изменение продавца по ID
+        /// </summary>
+        /// <param name="id">ID продавца</param>
         [HttpPut]
         public async Task<ActionResult> UpdateSeller(int id, UpdateSellerDTO dto,
                                                      IValidator<UpdateSellerDTO> validator)
@@ -85,6 +100,10 @@ namespace MaterialExchangeAPI.Controllers
             return Ok(response);
         }
 
+        /// <summary>
+        /// Удаление продавца по ID
+        /// </summary>
+        /// <param name="id">ID продавца</param>
         [HttpDelete]
         public async Task<ActionResult> DeleteSeller(int id)
         {
