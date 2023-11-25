@@ -23,7 +23,7 @@ namespace MaterialExchangeAPI.Handlers
             Material material = command.Adapt<Material>();
 
             _repository.Update(material);
-            await _repository.Save();
+            await _repository.SaveAsync();
 
             return material;
         }

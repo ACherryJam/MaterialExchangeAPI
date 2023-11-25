@@ -16,7 +16,7 @@ namespace MaterialExchangeAPI.Handlers
 
         public async Task<List<Seller>> Handle(GetSellersQuery query, CancellationToken cancellationToken)
         {
-            List<Seller> sellers = await _repository.Get();
+            List<Seller> sellers = await _repository.GetAsync();
             return sellers;
         }
     }

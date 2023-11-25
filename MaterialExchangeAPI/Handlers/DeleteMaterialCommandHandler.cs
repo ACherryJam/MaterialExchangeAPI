@@ -16,12 +16,12 @@ namespace MaterialExchangeAPI.Handlers
 
         public async Task<Material?> Handle(DeleteMaterialCommand command, CancellationToken cancellationToken)
         {
-            Material? material = await _repository.GetById(command.Id);
+            Material? material = await _repository.GetByIdAsync(command.Id);
             if (material == null)
                 return null;
 
             _repository.Delete(command.Id);
-            await _repository.Save();
+            await _repository.SaveAsync();
 
             return material;
         }

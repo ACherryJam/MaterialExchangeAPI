@@ -23,7 +23,7 @@ namespace MaterialExchangeAPI.Handlers
             Seller seller = command.Adapt<Seller>();
 
             _repository.Update(seller);
-            await _repository.Save();
+            await _repository.SaveAsync();
 
             return seller;
         }

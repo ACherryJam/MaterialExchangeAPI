@@ -14,12 +14,22 @@ namespace MaterialExchangeAPI.Data.Repositories
             _context = context;
         }
 
-        public Task<List<Seller>> Get()
+        public List<Seller> Get()
+        {
+            return _context.Sellers.ToList();
+        }
+
+        public Task<List<Seller>> GetAsync()
         {
             return _context.Sellers.ToListAsync();
         }
 
-        public Task<Seller?> GetById(int id)
+        public Seller? GetById(int id)
+        {
+            return _context.Sellers.FirstOrDefault(seller => seller.Id == id);
+        }
+
+        public Task<Seller?> GetByIdAsync(int id)
         {
             return _context.Sellers.FirstOrDefaultAsync(seller => seller.Id == id);
         }
@@ -44,7 +54,12 @@ namespace MaterialExchangeAPI.Data.Repositories
             }
         }
 
-        public async Task Save()
+        public void Save()
+        {
+            _context.SaveChanges();
+        }
+
+        public async Task SaveAsync()
         {
             await _context.SaveChangesAsync();
         }

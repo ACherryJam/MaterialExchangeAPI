@@ -2,9 +2,13 @@
 {
     public interface IRepository<Model>
     {
-        Task<List<Model>> Get();
+        List<Model> Get();
 
-        Task<Model?> GetById(int id);
+        Task<List<Model>> GetAsync();
+
+        Model? GetById(int id);
+
+        Task<Model?> GetByIdAsync(int id);
 
         void Insert(Model model);
 
@@ -12,7 +16,9 @@
 
         void Delete(int id);
 
-        Task Save();
+        void Save();
+
+        Task SaveAsync();
 
         bool Exists(int id);
     }
