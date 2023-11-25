@@ -69,7 +69,9 @@ namespace MaterialExchangeAPI.Controllers
         [HttpDelete]
         public async Task<ActionResult> DeleteSeller(int id)
         {
-            throw new NotImplementedException();
+            Seller seller = await _mediator.Send(new DeleteSellerCommand(id));
+
+            return seller == null ? NotFound() : Ok();
         }
     }
 }
