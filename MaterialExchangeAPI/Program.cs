@@ -5,6 +5,7 @@ using System.Reflection;
 using FluentValidation;
 using Hangfire;
 using Hangfire.PostgreSql;
+using MaterialExchangeAPI.Jobs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,6 +36,12 @@ builder.Services.AddHangfire(
         cfg.UseRecommendedSerializerSettings();
         cfg.UsePostgreSqlStorage(
             options => options.UseNpgsqlConnection(builder.Configuration.GetConnectionString("HangfireConnection"))
+        );
+
+        RecurringJob.AddOrUpdate<UpdateMaterialPriceJob>(
+            "Update Material Prices", 
+            job => job.Execute(), 
+            Cron.Daily(8)
         );
     }
 );
