@@ -7,7 +7,7 @@ namespace MaterialExchangeAPI.Requests.Commands
         int Id,
         string Name,
         decimal Price,
-        int SellerId
+        int? SellerId
     ) : IRequest<Material>
     {
 

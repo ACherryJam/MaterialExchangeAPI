@@ -5,14 +5,14 @@
         public int Id { get; set; }
         public string? Name { get; set; }
         public decimal Price { get; set; }
-        public int SellerId { get; set; }
+        public int? SellerId { get; set; }
     }
 
     public class CreateMaterialDTO
     {
         public string? Name { get; set; }
         public decimal Price { get; set; }
-        public int SellerId { get; set; }
+        public int? SellerId { get; set; } = null;
     }
 
     // Id is passed as an URL argument
@@ -20,6 +20,6 @@
     {
         public string? Name { get; set; }
         public decimal Price { get; set; }
-        public int SellerId { get; set; }
+        public int? SellerId { get; set; }
     }
 }

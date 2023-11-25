@@ -8,8 +8,7 @@ namespace MaterialExchangeAPI.Models
         public string? Name { get; set; }
         public decimal Price { get; set; }
 
-        [ForeignKey("Seller")]
-        public int SellerId { get; set; }
-        public Seller Seller { get; set; }
+        public int? SellerId { get; set; } = null;
+        public virtual Seller Seller { get; set; }
     }
 }
