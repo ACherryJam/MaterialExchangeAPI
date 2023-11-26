@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MaterialExchangeAPI.Models
+﻿namespace MaterialExchangeAPI.Models
 {
     public class Material
     {

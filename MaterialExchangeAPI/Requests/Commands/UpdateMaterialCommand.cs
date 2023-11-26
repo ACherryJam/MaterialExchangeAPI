@@ -1,5 +1,5 @@
-﻿using MediatR;
-using MaterialExchangeAPI.Models;
+﻿using MaterialExchangeAPI.Models;
+using MediatR;
 
 namespace MaterialExchangeAPI.Requests.Commands
 {

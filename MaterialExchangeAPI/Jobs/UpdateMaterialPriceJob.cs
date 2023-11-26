@@ -19,6 +19,7 @@ namespace MaterialExchangeAPI.Jobs
             Random random = new Random();
             foreach (Material material in materials)
             {
+                // Cap lower bound if price is less than 100
                 decimal lower_bound = Math.Max(-material.Price + 1, -100);
                 decimal range = 100 - lower_bound;
 

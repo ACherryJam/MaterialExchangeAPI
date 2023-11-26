@@ -1,11 +1,11 @@
-using MaterialExchangeAPI.Data;
-using MaterialExchangeAPI.Data.Repositories;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using FluentValidation;
 using Hangfire;
 using Hangfire.PostgreSql;
+using MaterialExchangeAPI.Data;
+using MaterialExchangeAPI.Data.Repositories;
 using MaterialExchangeAPI.Jobs;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -53,8 +53,8 @@ builder.Services.AddHangfire(
         );
 
         RecurringJob.AddOrUpdate<UpdateMaterialPriceJob>(
-            "Update Material Prices", 
-            job => job.Execute(), 
+            "Update Material Prices",
+            job => job.Execute(),
             Cron.Daily(8)
         );
     }

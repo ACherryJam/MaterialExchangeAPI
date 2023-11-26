@@ -6,9 +6,7 @@ using MaterialExchangeAPI.Extensions;
 using MaterialExchangeAPI.Models;
 using MaterialExchangeAPI.Requests.Commands;
 using MaterialExchangeAPI.Requests.Queries;
-using MaterialExchangeAPI.Validators;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MaterialExchangeAPI.Controllers
