@@ -6,6 +6,7 @@ using FluentValidation;
 using Hangfire;
 using Hangfire.PostgreSql;
 using MaterialExchangeAPI.Jobs;
+using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +16,13 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(
     options =>
     {
+        options.SwaggerDoc("v1", new OpenApiInfo
+        {
+            Version = "v1",
+            Title = "Material Exchange API",
+            Description = "API для биржи материалов"
+        });
+
         var filePath = Path.Combine(AppContext.BaseDirectory, "MaterialExchangeAPI.xml");
         options.IncludeXmlComments(filePath);
     }    
