@@ -29,7 +29,7 @@ namespace MaterialExchangeAPI.DTO
         /// ID продавца материала
         /// </summary>
         /// <example>1</example>
-        public int? SellerId { get; set; } = null;
+        public int SellerId { get; set; }
     }
 
     /// <summary>
@@ -55,7 +55,7 @@ namespace MaterialExchangeAPI.DTO
         /// ID продавца материала
         /// </summary>
         /// <example>1</example>
-        public int? SellerId { get; set; } = null;
+        public int SellerId { get; set; }
     }
 
     /// <summary>
@@ -79,6 +79,6 @@ namespace MaterialExchangeAPI.DTO
         /// ID продавца материала
         /// </summary>
         /// <example>2</example>
-        public int? SellerId { get; set; } = null;
+        public int SellerId { get; set; }
     }
 }
