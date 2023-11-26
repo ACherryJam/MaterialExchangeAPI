@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using Mapster;
 using MaterialExchangeAPI.DTO;
 using MaterialExchangeAPI.Extensions;
@@ -8,6 +8,8 @@ using MaterialExchangeAPI.Requests.Commands;
 using MaterialExchangeAPI.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace MaterialExchangeAPI.Controllers
 {
@@ -26,7 +28,7 @@ namespace MaterialExchangeAPI.Controllers
         /// Получение списка продавцов
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> GetSellers()
+        public async Task<ActionResult<List<GetSellerDTO>>> GetSellers()
         {
             List<Seller> sellers = await _mediator.Send(new GetSellersQuery());
 
@@ -40,7 +42,7 @@ namespace MaterialExchangeAPI.Controllers
         /// <param name="id">ID продавца</param>
         /// <returns></returns>
         [HttpGet("id")]
-        public async Task<ActionResult> GetSellerById(int id)
+        public async Task<ActionResult<GetSellerDTO>> GetSellerById(int id)
         {
             Seller seller = await _mediator.Send(new GetSellerByIdQuery(id));
             if (seller == null)
@@ -54,8 +56,10 @@ namespace MaterialExchangeAPI.Controllers
         /// Создание продавца
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult> AddSeller(CreateSellerDTO dto,
-                                                  IValidator<CreateSellerDTO> validator)
+        public async Task<ActionResult<GetSellerDTO>> AddSeller(
+            CreateSellerDTO dto,
+            IValidator<CreateSellerDTO> validator
+        )
         {
             // Validation
             ValidationResult result = await validator.ValidateAsync(dto);
@@ -77,8 +81,11 @@ namespace MaterialExchangeAPI.Controllers
         /// </summary>
         /// <param name="id">ID продавца</param>
         [HttpPut]
-        public async Task<ActionResult> UpdateSeller(int id, UpdateSellerDTO dto,
-                                                     IValidator<UpdateSellerDTO> validator)
+        public async Task<ActionResult<GetSellerDTO>> UpdateSeller(
+            [Required] int id,
+            UpdateSellerDTO dto,
+            IValidator<UpdateSellerDTO> validator
+        )
         {
             // Validation
             ValidationResult result = await validator.ValidateAsync(dto);
@@ -105,7 +112,7 @@ namespace MaterialExchangeAPI.Controllers
         /// </summary>
         /// <param name="id">ID продавца</param>
         [HttpDelete]
-        public async Task<ActionResult> DeleteSeller(int id)
+        public async Task<ActionResult> DeleteSeller([Required] int id)
         {
             Seller seller = await _mediator.Send(new DeleteSellerCommand(id));
 

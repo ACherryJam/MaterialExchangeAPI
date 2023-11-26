@@ -1,5 +1,5 @@
-﻿using FluentValidation;
-using FluentValidation.Results;
+﻿using System.ComponentModel.DataAnnotations;
+using FluentValidation;
 using Mapster;
 using MaterialExchangeAPI.DTO;
 using MaterialExchangeAPI.Extensions;
@@ -8,6 +8,8 @@ using MaterialExchangeAPI.Requests.Commands;
 using MaterialExchangeAPI.Requests.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+
+using ValidationResult = FluentValidation.Results.ValidationResult;
 
 namespace MaterialExchangeAPI.Controllers
 {
@@ -26,7 +28,7 @@ namespace MaterialExchangeAPI.Controllers
         /// Получение списка материалов
         /// </summary>
         [HttpGet]
-        public async Task<ActionResult> GetMaterials()
+        public async Task<ActionResult<List<GetMaterialDTO>>> GetMaterials()
         {
             List<Material> materials = await _mediator.Send(new GetMaterialsQuery());
 
@@ -39,7 +41,7 @@ namespace MaterialExchangeAPI.Controllers
         /// </summary>
         /// <param name="id">ID материала</param>
         [HttpGet("id")]
-        public async Task<ActionResult> GetMaterialById(int id)
+        public async Task<ActionResult<GetMaterialDTO>> GetMaterialById(int id)
         {
             Material material = await _mediator.Send(new GetMaterialByIdQuery(id));
             if (material == null)
@@ -53,8 +55,10 @@ namespace MaterialExchangeAPI.Controllers
         /// Создание материала
         /// </summary>
         [HttpPost]
-        public async Task<ActionResult> AddMaterial(CreateMaterialDTO dto,
-                                                    IValidator<CreateMaterialDTO> validator)
+        public async Task<ActionResult<GetMaterialDTO>> AddMaterial(
+            CreateMaterialDTO dto,
+            IValidator<CreateMaterialDTO> validator
+        )
         {
             // Validation
             ValidationResult result = await validator.ValidateAsync(dto);
@@ -76,8 +80,11 @@ namespace MaterialExchangeAPI.Controllers
         /// </summary>
         /// <param name="id">ID материала</param>
         [HttpPut]
-        public async Task<ActionResult> UpdateMaterial(int id, UpdateMaterialDTO dto,
-                                                       IValidator<UpdateMaterialDTO> validator)
+        public async Task<ActionResult<GetMaterialDTO>> UpdateMaterial(
+            [Required] int id,
+            UpdateMaterialDTO dto,
+            IValidator<UpdateMaterialDTO> validator
+        )
         {
             // Validation
             ValidationResult result = await validator.ValidateAsync(dto);
@@ -104,7 +111,7 @@ namespace MaterialExchangeAPI.Controllers
         /// </summary>
         /// <param name="id">ID материала</param>
         [HttpDelete]
-        public async Task<ActionResult> DeleteMaterial(int id)
+        public async Task<ActionResult> DeleteMaterial([Required] int id)
         {
             Material material = await _mediator.Send(new DeleteMaterialCommand(id));
 
