@@ -17,7 +17,7 @@ namespace MaterialExchangeAPI.Handlers
 
         public async Task<Seller?> Handle(UpdateSellerCommand command, CancellationToken cancellationToken)
         {
-            if (_repository.Exists(command.Id))
+            if (!_repository.Exists(command.Id))
                 return null;
 
             Seller seller = command.Adapt<Seller>();

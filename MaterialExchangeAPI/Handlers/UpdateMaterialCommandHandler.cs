@@ -17,7 +17,7 @@ namespace MaterialExchangeAPI.Handlers
 
         public async Task<Material?> Handle(UpdateMaterialCommand command, CancellationToken cancellationToken)
         {
-            if (_repository.Exists(command.Id))
+            if (!_repository.Exists(command.Id))
                 return null;
 
             Material material = command.Adapt<Material>();
